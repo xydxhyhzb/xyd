@@ -177,25 +177,11 @@
         `;
         document.head.appendChild(style);
 
-        // 显示演示账号信息（不自动填充）
-        window.addEventListener('load', function() {
-            // 显示提示信息
-            setTimeout(() => {
-                const demoInfo = document.createElement('div');
-                demoInfo.style.cssText = `
-                    text-align: center;
-                    margin-top: 15px;
-                    padding: 10px;
-                    background: #e8f4fd;
-                    border-radius: 5px;
-                    border: 1px solid #b3d9ff;
-                    font-size: 14px;
-                    color: #0066cc;
-                `;
-                demoInfo.innerHTML = '💡 <strong>演示账号信息</strong><br>用户名: admin | 密码: 123456';
-                document.querySelector('.login-form').appendChild(demoInfo);
-            }, 500);
-        });
+        // 默认管理员账号（实际项目中应该使用更安全的认证方式）
+        const adminCredentials = {
+            username: 'admin',
+            password: '123456'
+        };
     </script>
 </body>
 </html>
