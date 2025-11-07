@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理系统 - 校园表白墙</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-login {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>🔐 后台登录</h1>
+                <p>校园表白墙管理系统</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">用户名：</label>
+                    <input type="text" id="username" placeholder="请输入管理员用户名" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">密码：</label>
+                    <input type="password" id="password" placeholder="请输入管理员密码" required>
+                </div>
+                
+                <button type="submit" class="login-btn">登录</button>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+            
+            <div class="back-link">
+                <a href="index.html">← 返回表白墙</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // 默认管理员账号（实际项目中应该使用更安全的认证方式）
+            const adminCredentials = {
+                username: 'admin',
+                password: '123456'
+            };
+            
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                // 登录成功，保存登录状态
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('loginTime', new Date().getTime());
+                
+                // 跳转到管理后台
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                errorMessage.textContent = '用户名或密码错误！';
+                
+                // 清空密码框
+                document.getElementById('password').value = '';
+                
+                // 添加抖动效果
+                const form = document.getElementById('loginForm');
+                form.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    form.style.animation = '';
+                }, 500);
+            }
+        });
+
+        // 添加抖动动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 自动填充默认账号（仅用于演示）
+        window.addEventListener('load', function() {
+            // 仅在没有用户输入时自动填充
+            if (document.getElementById('username').value === '') {
+                document.getElementById('username').value = 'admin';
+                document.getElementById('password').value = '123456';
+                
+                // 显示提示信息
+                setTimeout(() => {
+                    const demoInfo = document.createElement('div');
+                    demoInfo.style.cssText = `
+                        text-align: center;
+                        margin-top: 15px;
+                        padding: 10px;
+                        background: #e8f4fd;
+                        border-radius: 5px;
+                        border: 1px solid #b3d9ff;
+                        font-size: 14px;
+                        color: #0066cc;
+                    `;
+                    demoInfo.innerHTML = '💡 <strong>演示账号已自动填充</strong><br>用户名: admin | 密码: 123456';
+                    document.querySelector('.login-form').appendChild(demoInfo);
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

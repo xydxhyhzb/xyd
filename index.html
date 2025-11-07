@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园表白墙</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>💕 校园表白墙</h1>
+            <p>勇敢表达你的心意，让爱传递整个校园</p>
+            <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button id="historyBtn" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 14px; border: none; cursor: pointer;">
+                    📜 历史消息
+                </button>
+                <a href="admin.html" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                    🔐 后台管理
+                </a>
+            </div>
+        </header>
+
+        <div class="post-form">
+            <h2>发布表白</h2>
+            <form id="confessionForm">
+                <div class="form-group">
+                    <label for="to">致：</label>
+                    <input type="text" id="to" placeholder="对方的姓名或昵称" required>
+                </div>
+                <div class="form-group">
+                    <label for="from">来自：</label>
+                    <input type="text" id="from" placeholder="你的姓名或昵称（可选）">
+                </div>
+                <div class="form-group">
+                    <label for="content">表白内容：</label>
+                    <textarea id="content" placeholder="写下你想说的话..." rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>上传图片/视频：</label>
+                    <div class="upload-container">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">📁</div>
+                            <div class="upload-text">
+                                <p>点击或拖拽文件到此处上传</p>
+                                <small>支持图片(JPG, PNG, GIF)和视频(MP4, WebM)，最大10MB</small>
+                            </div>
+                            <input type="file" id="mediaInput" accept="image/*,video/*" multiple style="display: none;">
+                        </div>
+                        <div id="previewContainer" class="preview-container">
+                            <!-- 预览文件将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type">表白类型：</label>
+                    <select id="type">
+                        <option value="love">💘 爱情表白</option>
+                        <option value="friendship">🤝 友情表白</option>
+                        <option value="admiration">🌟 欣赏表白</option>
+                        <option value="thanks">🙏 感谢表白</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">发布表白</button>
+            </form>
+        </div>
+
+        <div class="wall-container">
+            <h2>表白墙</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="love">💘 爱情</button>
+                <button class="filter-btn" data-filter="friendship">🤝 友情</button>
+                <button class="filter-btn" data-filter="admiration">🌟 欣赏</button>
+                <button class="filter-btn" data-filter="thanks">🙏 感谢</button>
+            </div>
+            <div id="wall" class="wall">
+                <!-- 表白卡片将在这里动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
